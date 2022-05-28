@@ -11,27 +11,29 @@ import torch.utils.data as data
 import math 
 
 class RecsysDataset(pl.LightningDataModule):
-    def __init__(self, num_workers, 
-                       train_batch_size, 
-                       test_batch_size, 
-                       root_folder, 
-                       data_folder, 
-                       split_percent):
+    def __init__(self, num_workers, train_batch_size, test_batch_size, root_folder, data_folder, split_percent):
+        super().__init__()
+        self.num_workers = num_workers
+        self.train_batch_size = train_batch_size
+        self.test_batch_size = test_batch_size
+        self.root_folder = root_folder
+        self.data_folder = data_folder
+        self.split_percent = split_percent
         self.save_hyperparameters()
         self.train_dataset, self.test_dataset = generate_split(percent=self.split_percent, root_folder = self.root_folder, data_folder = self.data_folder)
 
     def train_dataloader(self):
         return DataLoader(self.train_dataset, 
-                          batch_size=self.test_batch_size, 
-                          shuffle=True, 
+                          batch_size=self.train_batch_size,
+                          # shuffle=True,
                           drop_last=True, 
                           num_workers=self.num_workers, 
                           worker_init_fn=worker_init_fn)
     
     def valid_dataloader(self):
         return DataLoader(self.test_dataset, 
-                          batch_size=self.test_batch_size, 
-                          shuffle=True, 
+                          batch_size=self.valid_batch_size,
+                          # shuffle=True,
                           drop_last=True, 
                           num_workers=self.num_workers, 
                           worker_init_fn=worker_init_fn)
@@ -39,7 +41,7 @@ class RecsysDataset(pl.LightningDataModule):
     def test_dataloader(self):
         return DataLoader(self.test_dataset, 
                           batch_size=self.test_batch_size, 
-                          shuffle=True, 
+                          # shuffle=True,
                           drop_last=True, 
                           num_workers=self.num_workers, 
                           worker_init_fn=worker_init_fn) 

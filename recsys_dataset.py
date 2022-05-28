@@ -72,9 +72,9 @@ class RecSysMasterDataset(IterableDataset):
 
 # Lazy approach but this is used to allow for easy access between different language models
 # target_tokenizer - language model we want to use 
-target_tokenizer = transformers.AutoTokenizer.from_pretrained('bert-base-multilingual-cased')
+target_tokenizer = transformers.AutoTokenizer.from_pretrained('bert-base-multilingual-cased1')
 # tokenizer - language model we used to encode the dataset initially
-tokenizer = transformers.AutoTokenizer.from_pretrained('bert-base-multilingual-cased')
+tokenizer = transformers.AutoTokenizer.from_pretrained('bert-base-multilingual-cased1')
 
 class RecSysDatasetInstance(Dataset):
     """
