@@ -1,7 +1,7 @@
 import sys
 import torch
 from torch.utils.data import DataLoader
-from recsys_dataset import RecSysMasterDataset, worker_init_fn, generate_split
+from dm_dataloader import RecSysMasterDataset, worker_init_fn, generate_split
 from tqdm import tqdm, trange
 import argparse
 from datetime import datetime
